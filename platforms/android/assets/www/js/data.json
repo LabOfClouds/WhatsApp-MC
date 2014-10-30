@@ -1,0 +1,28 @@
+{
+    "items":[
+        {
+            "title": "Audios",
+            "color": "#DA5E60",
+            "icon": "audio.png",
+            "href": "home"
+        },
+        {
+            "title": "Imagens",
+            "color": "#13B0A5",
+            "icon": "imagem.png",
+            "href": "home"
+        },
+        {
+            "title": "Vídeos",
+            "color": "#F1B136",
+            "icon": "video.png",
+            "href": "home"
+        },
+        {
+            "title": "Galeria Online",
+            "color": "#3497C4",
+            "icon": "browser.png",
+            "href": "home"
+        }
+    ]
+}

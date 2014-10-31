@@ -18,6 +18,8 @@
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
 
+    <script src="testePlugin.js"></script>
+
     <!-- your app's js -->
     <script src="js/app.js"></script>
     <script src="js/jquery-2.1.1.min.js"></script>
@@ -42,14 +44,6 @@
     </style>
 
     <script>
-        $(function() {
-            loadMenu();
-
-            $("body").on("click", "#menu-button-back", function() {
-                loadMenu();
-            });
-        });
-
         function loadMenu() {
             $.getJSON("js/data.json", {}, function(data) {
                 var menuItems = [];
@@ -79,8 +73,8 @@
 
     <!-- index -->
     <script id="index.html" type="text/ng-template">
-        <ion-view title="WhatsApp MediaCenter" hide-back-button="true">
-            <ion-content ng-controller="MainController">
+        <ion-view title="WhatsApp MediaCenter" hide-back-button="true" ng-controller="MainController">
+            <ion-content>
 
                 <div id="menu-list"></div>
 

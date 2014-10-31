@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
+           id="com.labofclouds.cordova.cordovaIntent"
+      version="0.1.0">
+    <name>CordovaIntent</name>
+    <description>Sample PhoneGap CordovaIntent Plugin</description>
+    <license>MIT</license>
+    <keywords>phonegap,intent</keywords>
+ 
+ 
+    <js-module src="www/cordovaIntent.js" name="CordovaIntent"></js-module>
+ 
+    <!-- android -->
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="CordovaIntent">
+                <param name="android-package" value="com.labofclouds.cordova.cordovaIntent.CordovaIntent"/>
+            </feature>
+        </config-file>
+ 
+        <source-file src="src/CordovaIntent.java" target-dir="src/com/labofclouds/cordova/cordovaIntent" />      
+     </platform>          
+</plugin>

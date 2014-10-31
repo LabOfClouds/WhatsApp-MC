@@ -49,7 +49,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.ValueCallback;
@@ -60,9 +59,9 @@ import android.widget.LinearLayout;
  * This class is the main Android activity that represents the Cordova
  * application. It should be extended by the user to load the specific
  * html file that contains the application.
- *
+ * <p/>
  * As an example:
- * 
+ * <p/>
  * <pre>
  *     package org.apache.cordova.examples;
  *
@@ -73,19 +72,17 @@ import android.widget.LinearLayout;
  *       &#64;Override
  *       public void onCreate(Bundle savedInstanceState) {
  *         super.onCreate(savedInstanceState);
- *         super.init();
  *         // Load your application
  *         loadUrl(launchUrl);
  *       }
  *     }
  * </pre>
- * 
- * Cordova xml configuration: Cordova uses a configuration file at 
+ * <p/>
+ * Cordova xml configuration: Cordova uses a configuration file at
  * res/xml/config.xml to specify its settings. See "The config.xml File"
  * guide in cordova-docs at http://cordova.apache.org/docs for the documentation
  * for the configuration. The use of the set*Property() methods is
  * deprecated in favor of the config.xml file.
- *
  */
 public class CordovaActivity extends Activity implements CordovaInterface {
     public static String TAG = "CordovaActivity";
@@ -138,12 +135,12 @@ public class CordovaActivity extends Activity implements CordovaInterface {
     protected ArrayList<PluginEntry> pluginEntries;
 
     /**
-    * Sets the authentication token.
-    *
-    * @param authenticationToken
-    * @param host
-    * @param realm
-    */
+     * Sets the authentication token.
+     *
+     * @param authenticationToken
+     * @param host
+     * @param realm
+     */
     public void setAuthenticationToken(AuthenticationToken authenticationToken, String host, String realm) {
         if (this.appView != null && this.appView.viewClient != null) {
             this.appView.viewClient.setAuthenticationToken(authenticationToken, host, realm);
@@ -155,7 +152,6 @@ public class CordovaActivity extends Activity implements CordovaInterface {
      *
      * @param host
      * @param realm
-     *
      * @return the authentication token or null if did not exist
      */
     public AuthenticationToken removeAuthenticationToken(String host, String realm) {
@@ -167,7 +163,7 @@ public class CordovaActivity extends Activity implements CordovaInterface {
 
     /**
      * Gets the authentication token.
-     *
+     * <p/>
      * In order it tries:
      * 1- host + realm
      * 2- host
@@ -176,7 +172,6 @@ public class CordovaActivity extends Activity implements CordovaInterface {
      *
      * @param host
      * @param realm
-     *
      * @return the authentication token
      */
     public AuthenticationToken getAuthenticationToken(String host, String realm) {
@@ -202,33 +197,13 @@ public class CordovaActivity extends Activity implements CordovaInterface {
     public void onCreate(Bundle savedInstanceState) {
         LOG.i(TAG, "Apache Cordova native platform version " + CordovaWebView.CORDOVA_VERSION + " is starting");
         LOG.d(TAG, "CordovaActivity.onCreate()");
-
-        // need to activate preferences before super.onCreate to avoid "requestFeature() must be called before adding content" exception
-        loadConfig();
-        if(!preferences.getBoolean("ShowTitle", false))
-        {
-            getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        }
-        
-        if(preferences.getBoolean("SetFullscreen", false))
-        {
-            Log.d(TAG, "The SetFullscreen configuration is deprecated in favor of Fullscreen, and will be removed in a future version.");
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        } else if (preferences.getBoolean("Fullscreen", false)) {
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        } else {
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN,
-                    WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
-        }
-
         super.onCreate(savedInstanceState);
 
-        if(savedInstanceState != null)
-        {
+        if (savedInstanceState != null) {
             initCallbackClass = savedInstanceState.getString("callbackClass");
         }
+
+        loadConfig();
     }
 
     @SuppressWarnings("deprecation")
@@ -248,9 +223,7 @@ public class CordovaActivity extends Activity implements CordovaInterface {
     @SuppressWarnings("deprecation")
     protected void createViews() {
         // This builds the view.  We could probably get away with NOT having a LinearLayout, but I like having a bucket!
-
-        LOG.d(TAG, "CordovaActivity.createViews()");
-
+        // This builds the view.  We could probably get away with NOT having a LinearLayout, but I like having a bucket!
         Display display = getWindowManager().getDefaultDisplay();
         int width = display.getWidth();
         int height = display.getHeight();
@@ -268,14 +241,6 @@ public class CordovaActivity extends Activity implements CordovaInterface {
 
         // Add web view but make it invisible while loading URL
         appView.setVisibility(View.INVISIBLE);
-        
-        // need to remove appView from any existing parent before invoking root.addView(appView)
-        ViewParent parent = appView.getParent();
-        if ((parent != null) && (parent != root)) {
-            LOG.d(TAG, "removing appView from existing parent");
-            ViewGroup parentGroup = (ViewGroup) parent;
-            parentGroup.removeView(appView);
-        }
         root.addView((View) appView);
         setContentView(root);
 
@@ -286,13 +251,14 @@ public class CordovaActivity extends Activity implements CordovaInterface {
     /**
      * Get the Android activity.
      */
-    @Override public Activity getActivity() {
+    @Override
+    public Activity getActivity() {
         return this;
     }
 
     /**
      * Construct the default web view object.
-     *
+     * <p/>
      * This is intended to be overridable by subclasses of CordovaIntent which
      * require a more specialized web view.
      */
@@ -302,7 +268,7 @@ public class CordovaActivity extends Activity implements CordovaInterface {
 
     /**
      * Construct the client for the default web view object.
-     *
+     * <p/>
      * This is intended to be overridable by subclasses of CordovaIntent which
      * require a more specialized web view.
      *
@@ -314,7 +280,7 @@ public class CordovaActivity extends Activity implements CordovaInterface {
 
     /**
      * Construct the chrome client for the default web view object.
-     *
+     * <p/>
      * This is intended to be overridable by subclasses of CordovaIntent which
      * require a more specialized web view.
      *
@@ -332,6 +298,22 @@ public class CordovaActivity extends Activity implements CordovaInterface {
     @Deprecated // Call init() instead and override makeWebView() to customize.
     public void init(CordovaWebView webView, CordovaWebViewClient webViewClient, CordovaChromeClient webChromeClient) {
         LOG.d(TAG, "CordovaActivity.init()");
+
+        if (!preferences.getBoolean("ShowTitle", false)) {
+            getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        }
+
+        if (preferences.getBoolean("SetFullscreen", false)) {
+            Log.d(TAG, "The SetFullscreen configuration is deprecated in favor of Fullscreen, and will be removed in a future version.");
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        } else if (preferences.getBoolean("Fullscreen", false)) {
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        } else {
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
+        }
 
         appView = webView != null ? webView : makeWebView();
         if (appView.pluginManager == null) {
@@ -360,32 +342,27 @@ public class CordovaActivity extends Activity implements CordovaInterface {
         }
         this.splashscreenTime = preferences.getInteger("SplashScreenDelay", this.splashscreenTime);
         String splash = preferences.getString("SplashScreen", null);
-        if(this.splashscreenTime > 0 && splash != null)
-        {
-            this.splashscreen = getResources().getIdentifier(splash, "drawable", getClass().getPackage().getName());;
-            if(this.splashscreen != 0)
-            {
+        if (this.splashscreenTime > 0 && splash != null) {
+            this.splashscreen = getResources().getIdentifier(splash, "drawable", getClass().getPackage().getName());
+            ;
+            if (this.splashscreen != 0) {
                 this.showSplashScreen(this.splashscreenTime);
             }
         }
-        
+
         // If keepRunning
         this.keepRunning = preferences.getBoolean("KeepRunning", true);
 
         //Check if the view is attached to anything
-        if(appView.getParent() != null)
-        {
+        if (appView.getParent() != null) {
             // Then load the spinner
             this.loadSpinner();
         }
         //Load the correct splashscreen
-        
-        if(this.splashscreen != 0)
-        {
+
+        if (this.splashscreen != 0) {
             this.appView.loadUrl(url, this.splashscreenTime);
-        }
-        else
-        {
+        } else {
             this.appView.loadUrl(url);
         }
     }
@@ -395,14 +372,14 @@ public class CordovaActivity extends Activity implements CordovaInterface {
      * This is used to display the splashscreen for certain amount of time.
      *
      * @param url
-     * @param time              The number of ms to wait before loading webview
+     * @param time The number of ms to wait before loading webview
      */
     public void loadUrl(final String url, int time) {
 
         this.splashscreenTime = time;
         this.loadUrl(url);
     }
-    
+
     /*
      * Load the spinner
      */
@@ -412,8 +389,7 @@ public class CordovaActivity extends Activity implements CordovaInterface {
         String loading = null;
         if ((this.appView == null) || !this.appView.canGoBack()) {
             loading = preferences.getString("LoadingDialog", null);
-        }
-        else {
+        } else {
             loading = preferences.getString("LoadingPageDialog", null);
         }
         if (loading != null) {
@@ -426,8 +402,7 @@ public class CordovaActivity extends Activity implements CordovaInterface {
                 if (comma > 0) {
                     title = loading.substring(0, comma);
                     message = loading.substring(comma + 1);
-                }
-                else {
+                } else {
                     title = "";
                     message = loading;
                 }
@@ -580,9 +555,7 @@ public class CordovaActivity extends Activity implements CordovaInterface {
 
         if (this.appView == null) {
             return;
-        }
-        else
-        {
+        } else {
             this.appView.handlePause(this.keepRunning);
         }
 
@@ -592,13 +565,13 @@ public class CordovaActivity extends Activity implements CordovaInterface {
 
     /**
      * Called when the activity receives a new intent
-     **/
+     */
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         //Forward to plugins
         if (this.appView != null)
-           this.appView.onNewIntent(intent);
+            this.appView.onNewIntent(intent);
     }
 
     /**
@@ -608,7 +581,7 @@ public class CordovaActivity extends Activity implements CordovaInterface {
     protected void onResume() {
         super.onResume();
         LOG.d(TAG, "Resuming the App");
-        
+
         if (this.activityState == ACTIVITY_STARTING) {
             this.activityState = ACTIVITY_RUNNING;
             return;
@@ -647,9 +620,8 @@ public class CordovaActivity extends Activity implements CordovaInterface {
 
         if (this.appView != null) {
             appView.handleDestroy();
-        }
-        else {
-            this.activityState = ACTIVITY_EXITING; 
+        } else {
+            this.activityState = ACTIVITY_EXITING;
         }
     }
 
@@ -663,9 +635,8 @@ public class CordovaActivity extends Activity implements CordovaInterface {
     }
 
     /**
-     * @deprecated
-     * Add services to res/xml/plugins.xml instead.
-     *
+     * @deprecated Add services to res/xml/plugins.xml instead.
+     * <p/>
      * Add a class that implements a service.
      */
     @Deprecated
@@ -691,8 +662,8 @@ public class CordovaActivity extends Activity implements CordovaInterface {
     /**
      * Show the spinner.  Must be called from the UI thread.
      *
-     * @param title         Title of the dialog
-     * @param message       The message of the dialog
+     * @param title   Title of the dialog
+     * @param message The message of the dialog
      */
     public void spinnerStart(final String title, final String message) {
         if (this.spinnerDialog != null) {
@@ -731,9 +702,9 @@ public class CordovaActivity extends Activity implements CordovaInterface {
      * Launch an activity for which you would like a result when it finished. When this activity exits,
      * your onActivityResult() method will be called.
      *
-     * @param command           The command object
-     * @param intent            The intent to start
-     * @param requestCode       The request code that is passed to callback to identify the activity
+     * @param command     The command object
+     * @param intent      The intent to start
+     * @param requestCode The request code that is passed to callback to identify the activity
      */
     public void startActivityForResult(CordovaPlugin command, Intent intent, int requestCode) {
         this.activityResultCallback = command;
@@ -752,10 +723,10 @@ public class CordovaActivity extends Activity implements CordovaInterface {
      * Called when an activity you launched exits, giving you the requestCode you started it with,
      * the resultCode it returned, and any additional data from it.
      *
-     * @param requestCode       The request code originally supplied to startActivityForResult(),
-     *                          allowing you to identify who this result came from.
-     * @param resultCode        The integer result code returned by the child activity through its setResult().
-     * @param data              An Intent, which can return result data to the caller (various data can be attached to Intent "extras").
+     * @param requestCode The request code originally supplied to startActivityForResult(),
+     *                    allowing you to identify who this result came from.
+     * @param resultCode  The integer result code returned by the child activity through its setResult().
+     * @param data        An Intent, which can return result data to the caller (various data can be attached to Intent "extras").
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
@@ -763,7 +734,7 @@ public class CordovaActivity extends Activity implements CordovaInterface {
         super.onActivityResult(requestCode, resultCode, intent);
         Log.d(TAG, "Request code = " + requestCode);
         if (appView != null && requestCode == CordovaChromeClient.FILECHOOSER_RESULTCODE) {
-        	ValueCallback<Uri> mUploadMessage = this.appView.getWebChromeClient().getValueCallback();
+            ValueCallback<Uri> mUploadMessage = this.appView.getWebChromeClient().getValueCallback();
             Log.d(TAG, "did we get here?");
             if (null == mUploadMessage)
                 return;
@@ -773,13 +744,13 @@ public class CordovaActivity extends Activity implements CordovaInterface {
             mUploadMessage = null;
         }
         CordovaPlugin callback = this.activityResultCallback;
-        if(callback == null && initCallbackClass != null) {
+        if (callback == null && initCallbackClass != null) {
             // The application was restarted, but had defined an initial callback
             // before being shut down.
             this.activityResultCallback = appView.pluginManager.getPlugin(initCallbackClass);
             callback = this.activityResultCallback;
         }
-        if(callback != null) {
+        if (callback != null) {
             LOG.d(TAG, "We have a callback to send this result to");
             callback.onActivityResult(requestCode, resultCode, intent);
         }
@@ -793,9 +764,9 @@ public class CordovaActivity extends Activity implements CordovaInterface {
      * Report an error to the host application. These errors are unrecoverable (i.e. the main resource is unavailable).
      * The errorCode parameter corresponds to one of the ERROR_* constants.
      *
-     * @param errorCode    The error code corresponding to an ERROR_* value.
-     * @param description  A String describing the error.
-     * @param failingUrl   The url that failed to load.
+     * @param errorCode   The error code corresponding to an ERROR_* value.
+     * @param description A String describing the error.
+     * @param failingUrl  The url that failed to load.
      */
     public void onReceivedError(final int errorCode, final String description, final String failingUrl) {
         final CordovaActivity me = this;
@@ -897,13 +868,13 @@ public class CordovaActivity extends Activity implements CordovaInterface {
 
     /**
      * Load the specified URL in the Cordova webview or a new browser instance.
-     *
+     * <p/>
      * NOTE: If openExternal is false, only URLs listed in whitelist can be loaded.
      *
-     * @param url           The url to load.
-     * @param openExternal  Load url in browser instead of Cordova webview.
-     * @param clearHistory  Clear the history stack, so new page becomes top of history
-     * @param params        Parameters for new app
+     * @param url          The url to load.
+     * @param openExternal Load url in browser instead of Cordova webview.
+     * @param clearHistory Clear the history stack, so new page becomes top of history
+     * @param params       Parameters for new app
      */
     @Deprecated // Call method on appView directly.
     public void showWebPage(String url, boolean openExternal, boolean clearHistory, HashMap<String, Object> params) {
@@ -945,7 +916,7 @@ public class CordovaActivity extends Activity implements CordovaInterface {
                 root.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.MATCH_PARENT, 0.0F));
                 root.setBackgroundResource(that.splashscreen);
-                
+
                 // Create and show the dialog
                 splashDialog = new Dialog(that, android.R.style.Theme_Translucent_NoTitleBar);
                 // check to see if the splash screen should be full screen
@@ -971,14 +942,13 @@ public class CordovaActivity extends Activity implements CordovaInterface {
     }
 
     @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event)
-    {
-        if (appView != null && (appView.isCustomViewShowing() || appView.getFocusedChild() != null ) &&
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if (appView != null && (appView.isCustomViewShowing() || appView.getFocusedChild() != null) &&
                 (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_MENU)) {
             return appView.onKeyUp(keyCode, event);
         } else {
             return super.onKeyUp(keyCode, event);
-    	}
+        }
     }
     
     /*
@@ -987,25 +957,23 @@ public class CordovaActivity extends Activity implements CordovaInterface {
      * (non-Javadoc)
      * @see android.app.Activity#onKeyDown(int, android.view.KeyEvent)
      */
-    
+
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event)
-    {
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
         //Determine if the focus is on the current view or not
         if (appView != null && appView.getFocusedChild() != null && (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_MENU)) {
-                    return appView.onKeyDown(keyCode, event);
-        }
-        else
+            return appView.onKeyDown(keyCode, event);
+        } else
             return super.onKeyDown(keyCode, event);
     }
-    
-    
+
+
     /**
      * Called when a message is sent to plugin.
      *
-     * @param id            The message id
-     * @param data          The message data
-     * @return              Object or null
+     * @param id   The message id
+     * @param data The message data
+     * @return Object or null
      */
     public Object onMessage(String id, Object data) {
         if (!"onScrollChanged".equals(id)) {
@@ -1015,8 +983,7 @@ public class CordovaActivity extends Activity implements CordovaInterface {
         if ("splashscreen".equals(id)) {
             if ("hide".equals(data.toString())) {
                 this.removeSplashScreen();
-            }
-            else {
+            } else {
                 // If the splash dialog is showing don't try to show it again
                 if (this.splashDialog == null || !this.splashDialog.isShowing()) {
                     String splashResource = preferences.getString("SplashScreen", null);
@@ -1026,22 +993,19 @@ public class CordovaActivity extends Activity implements CordovaInterface {
                     this.showSplashScreen(this.splashscreenTime);
                 }
             }
-        }
-        else if ("spinner".equals(id)) {
+        } else if ("spinner".equals(id)) {
             if ("stop".equals(data.toString())) {
                 this.spinnerStop();
                 this.appView.setVisibility(View.VISIBLE);
             }
-        }
-        else if ("onReceivedError".equals(id)) {
+        } else if ("onReceivedError".equals(id)) {
             JSONObject d = (JSONObject) data;
             try {
                 this.onReceivedError(d.getInt("errorCode"), d.getString("description"), d.getString("url"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-        }
-        else if ("exit".equals(id)) {
+        } else if ("exit".equals(id)) {
             this.endActivity();
         }
         return null;
@@ -1050,12 +1014,10 @@ public class CordovaActivity extends Activity implements CordovaInterface {
     public ExecutorService getThreadPool() {
         return threadPool;
     }
-    
-    protected void onSaveInstanceState(Bundle outState)
-    {
+
+    protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        if(this.activityResultCallback != null)
-        {
+        if (this.activityResultCallback != null) {
             String cClass = this.activityResultCallback.getClass().getName();
             outState.putString("callbackClass", cClass);
         }

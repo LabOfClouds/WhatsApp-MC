@@ -15,6 +15,10 @@
                         {
                             "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"CordovaIntent\"><param name=\"android-package\" value=\"com.labofclouds.cordova.cordovaIntent.CordovaIntent\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -23,13 +27,19 @@
     },
     "installed_plugins": {
         "com.ionic.keyboard": {
-            "PACKAGE_NAME": "com.ionicframework.whatsappmc676203"
+            "PACKAGE_NAME": "com.labofclouds.whatsappmc"
         },
         "org.apache.cordova.console": {
-            "PACKAGE_NAME": "com.ionicframework.whatsappmc676203"
+            "PACKAGE_NAME": "com.labofclouds.whatsappmc"
         },
         "org.apache.cordova.device": {
-            "PACKAGE_NAME": "com.ionicframework.whatsappmc676203"
+            "PACKAGE_NAME": "com.labofclouds.whatsappmc"
+        },
+        "com.labofclouds.cordova.testePlugin": {
+            "PACKAGE_NAME": "com.labofclouds.whatsappmc"
+        },
+        "com.labofclouds.cordova.cordovaIntent": {
+            "PACKAGE_NAME": "com.labofclouds.whatsappmc"
         }
     },
     "dependent_plugins": {}

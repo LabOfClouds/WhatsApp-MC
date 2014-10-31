@@ -40,7 +40,7 @@ public class IceCreamCordovaWebViewClient extends CordovaWebViewClient {
     public IceCreamCordovaWebViewClient(CordovaInterface cordova) {
         super(cordova);
     }
-    
+
     public IceCreamCordovaWebViewClient(CordovaInterface cordova, CordovaWebView view) {
         super(cordova, view);
     }
@@ -60,7 +60,7 @@ public class IceCreamCordovaWebViewClient extends CordovaWebViewClient {
             Uri origUri = Uri.parse(url);
             // Allow plugins to intercept WebView requests.
             Uri remappedUri = resourceApi.remapUri(origUri);
-            
+
             if (!origUri.equals(remappedUri) || needsSpecialsInAssetUrlFix(origUri) || needsKitKatContentUrlFix(origUri)) {
                 OpenForReadResult result = resourceApi.openForRead(remappedUri, true);
                 return new WebResourceResponse(result.mimeType, "UTF-8", result.inputStream);
@@ -78,7 +78,7 @@ public class IceCreamCordovaWebViewClient extends CordovaWebViewClient {
 
     private boolean isUrlHarmful(String url) {
         return ((url.startsWith("http:") || url.startsWith("https:")) && !appView.getWhitelist().isUrlWhiteListed(url))
-            || url.contains("app_webview");
+                || url.contains("app_webview");
     }
 
     private static boolean needsKitKatContentUrlFix(Uri uri) {
@@ -92,12 +92,12 @@ public class IceCreamCordovaWebViewClient extends CordovaWebViewClient {
         if (uri.getQuery() != null || uri.getFragment() != null) {
             return true;
         }
-        
+
         if (!uri.toString().contains("%")) {
             return false;
         }
 
-        switch(android.os.Build.VERSION.SDK_INT){
+        switch (android.os.Build.VERSION.SDK_INT) {
             case android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH:
             case android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1:
                 return true;

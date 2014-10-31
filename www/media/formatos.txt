@@ -1,0 +1,9 @@
+dois primeiros digitos = menu
+dois digitos seguintes = categoria dentro do menu
+quatro digitos seguintes = id do arquivo dentro da categorua
+
+01 - Audios
+0101 - Memes
+0102 - TV
+0103 - Series
+0104 - Filmes

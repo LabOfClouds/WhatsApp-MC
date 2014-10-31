@@ -1,28 +1,32 @@
 {
     "items":[
         {
+            "id": "01",
             "title": "Audios",
             "color": "#DA5E60",
             "icon": "audio.png",
             "href": "audio"
         },
         {
+            "id": "02",
             "title": "Imagens",
             "color": "#13B0A5",
             "icon": "imagem.png",
-            "href": "imagem"
+            "href": "image"
         },
         {
+            "id": "03",
             "title": "Vídeos",
             "color": "#F1B136",
             "icon": "video.png",
             "href": "video"
         },
         {
+            "id": "04",
             "title": "Galeria Online",
             "color": "#3497C4",
             "icon": "browser.png",
-            "href": "galeria"
+            "href": "galery"
         }
     ]
 }

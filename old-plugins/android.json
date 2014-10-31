@@ -1,0 +1,46 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {
+            "res/xml/config.xml": {
+                "parents": {
+                    "/*": [
+                        {
+                            "xml": "<feature name=\"Keyboard\"><param name=\"android-package\" value=\"com.ionic.keyboard.IonicKeyboard\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"TestePlugin\"><param name=\"android-package\" value=\"com.labofclouds.cordova.testePlugin.TestePlugin\" /></feature>",
+                            "count": 1
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "installed_plugins": {
+        "com.ionic.keyboard": {
+            "PACKAGE_NAME": "com.labofclouds.whatsappmc"
+        },
+        "org.apache.cordova.console": {
+            "PACKAGE_NAME": "com.labofclouds.whatsappmc"
+        },
+        "org.apache.cordova.device": {
+            "PACKAGE_NAME": "com.labofclouds.whatsappmc"
+        },
+        "com.labofclouds.plugins.cordovaIntent": {
+            "PACKAGE_NAME": "com.labofclouds.whatsappmc"
+        },
+        "com.labofclouds.cordova.testePlugin": {
+            "PACKAGE_NAME": "com.labofclouds.whatsappmc"
+        }
+    },
+    "dependent_plugins": {}
+}

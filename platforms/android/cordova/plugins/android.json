@@ -1,0 +1,26 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {
+            "res/xml/config.xml": {
+                "parents": {
+                    "/*": [
+                        {
+                            "xml": "<feature name=\"TestePlugin\"><param name=\"android-package\" value=\"com.labofclouds.cordova.testePlugin.TestePlugin\" /></feature>",
+                            "count": 1
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "installed_plugins": {
+        "com.labofclouds.cordova.testePlugin": {
+            "PACKAGE_NAME": "com.labofclouds.whatsappmc"
+        }
+    },
+    "dependent_plugins": {}
+}
